@@ -221,20 +221,17 @@ class ConnectionDock(QDockWidget):
 
 
     def doesHaveIrregularBodySigns(self, measurements):
-        print(float(measurements["bodyTemperature"]))
-        print(float(measurements["pulseRate"]))
-        print(float(measurements["respirationRate"]))
-        print(float(measurements["bloodPressure"]))
+        state = False
         if(34.0 > float(measurements["bodyTemperature"]) or float(measurements["bodyTemperature"]) > 38.0):
-            return True
+            state = True
         elif (60.0 > float(measurements["pulseRate"]) or float(measurements["pulseRate"]) > 100.0):
-            return True
+            state = True
         elif (12.0 > float(measurements["respirationRate"]) or float(measurements["respirationRate"]) > 16.0):
-            return True
+            state = True
         elif (80.0 > float(measurements["bloodPressure"]) or float(measurements["bloodPressure"]) > 120.0):
-            return True
-        else:
-            return False
+            state = True
+
+        return state
 
     def irregularBodyVitalSignActions(self, measurements):
         self.notification.append('<span style=\"color: red\">Alert: Some body vitals show unusual sign. please contact a medical expert<span>')
